@@ -83,13 +83,13 @@ app_license = "mit"
 # ------------
 
 # before_install = "order_confirmation_checker.install.before_install"
-# after_install = "order_confirmation_checker.install.after_install"
+after_install = "order_confirmation_checker.setup.after_install"
 
 # Uninstallation
 # ------------
 
 # before_uninstall = "order_confirmation_checker.uninstall.before_uninstall"
-# after_uninstall = "order_confirmation_checker.uninstall.after_uninstall"
+after_uninstall = "order_confirmation_checker.setup.after_uninstall"
 
 # Integration Setup
 # ------------------
@@ -137,34 +137,32 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Purchase Order": {
+		"validate": "order_confirmation_checker.purchase_order.update_workflow_timestamp",
+	}
+}
 
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"order_confirmation_checker.tasks.all"
-# 	],
-# 	"daily": [
-# 		"order_confirmation_checker.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"order_confirmation_checker.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"order_confirmation_checker.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"order_confirmation_checker.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+	# "all": [
+	# 	"order_confirmation_checker.tasks.all"
+	# ],
+	# "daily": [
+	# 	"order_confirmation_checker.tasks.daily"
+	# ],
+	"hourly": [
+		"order_confirmation_checker.purchase_order.check_order_confirmation"
+	],
+	# "weekly": [
+	# 	"order_confirmation_checker.tasks.weekly"
+	# ],
+	# "monthly": [
+	# 	"order_confirmation_checker.tasks.monthly"
+	# ],
+}
 
 # Testing
 # -------
@@ -242,3 +240,6 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+fixtures = [
+    {"dt": "Workflow State", "filters": [["name", "=", "Order Not Confirmed"]]},
+]
