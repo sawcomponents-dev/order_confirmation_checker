@@ -239,3 +239,7 @@ scheduler_events = {
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
+
+fixtures = [
+    {"dt": "Custom Field", "filters": [["module", "=", "Order Confirmation Checker"]]}
+]
