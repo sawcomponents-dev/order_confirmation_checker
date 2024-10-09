@@ -17,7 +17,8 @@ def create_workflow_state():
         raise e
 
 def delete_workflow_state():
-    frappe.get_doc("Workflow State", "Order Not Confirmed")
+    if frappe.db.exists("Workflow State", "Order Not Confirmed"):
+        frappe.get_doc("Workflow State", "Order Not Confirmed")
 
 def add_workflow_action():
     try:
