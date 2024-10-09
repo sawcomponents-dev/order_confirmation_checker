@@ -10,9 +10,8 @@ def after_uninstall():
 
 def create_workflow_state():
     try:
-        workflow_state = frappe.get_doc("Workflow State", {
-            "workflow_state_name": "Order Not Confirmed"
-        })
+        workflow_state = frappe.new_doc("Workflow State")
+        workflow_state.workflow_state_name = "Order Not Confirmed"
         workflow_state.insert(ignore_permissions=True)
     except Exception as e:
         raise e
