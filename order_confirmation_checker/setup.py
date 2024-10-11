@@ -4,17 +4,18 @@ def after_install():
     create_workflow_state()
     add_workflow_action()
 
-def after_uninstall():
+def before_uninstall():
     remove_workflow_action()
     delete_workflow_state()
 
 def create_workflow_state():
-    try:
-        workflow_state = frappe.new_doc("Workflow State")
-        workflow_state.workflow_state_name = "Order Not Confirmed"
-        workflow_state.insert(ignore_permissions=True)
-    except Exception as e:
-        raise e
+    if not frappe.db.exists("Workflow State", "Order Not Confirmed"):
+        try:
+            workflow_state = frappe.new_doc("Workflow State")
+            workflow_state.workflow_state_name = "Order Not Confirmed"
+            workflow_state.insert(ignore_permissions=True)
+        except Exception as e:
+            raise e
 
 def delete_workflow_state():
     if frappe.db.exists("Workflow State", "Order Not Confirmed"):
