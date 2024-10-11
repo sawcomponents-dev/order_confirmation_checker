@@ -88,8 +88,8 @@ after_install = "order_confirmation_checker.setup.after_install"
 # Uninstallation
 # ------------
 
-# before_uninstall = "order_confirmation_checker.uninstall.before_uninstall"
-after_uninstall = "order_confirmation_checker.setup.after_uninstall"
+before_uninstall = "order_confirmation_checker.setup.before_uninstall"
+# after_uninstall = "order_confirmation_checker.setup.after_uninstall"
 
 # Integration Setup
 # ------------------
